@@ -86,7 +86,7 @@ mount /dev/sdX1 /mnt/boot
 **Install core packages using `pacstrap`:**
 This step will download and install the base system, kernel, and all specified desktop packages.
 ```bash
-pacstrap /mnt base linux-zen linux-zen-headers nvidia-dkms grub efibootmgr networkmanager sway swaylock ly waybar rofi dunst swaybg wl-clipboard grim slurp cliphist polkit-kde-agent kitty thunar nano pipewire pipewire-pulse wireplumber pavucontrol steam lutris wine gamemode git nvtop ufw lxappearance ttf-jetbrains-mono-nerd
+pacstrap /mnt base linux-zen linux-zen-headers nvidia-dkms grub efibootmgr networkmanager hyprland hyprlock ly hyprpaper wofi dunst wl-clipboard grim slurp cliphist polkit-kde-agent kitty thunar nano pipewire pipewire-pulse wireplumber pavucontrol steam lutris wine gamemode git nvtop ufw lxappearance ttf-jetbrains-mono-nerd-font
 ```
 
 ---
@@ -120,7 +120,7 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 **Hostname:**
 ```bash
-echo "arch-sway" > /etc/hostname
+echo "arch-hyprland" > /etc/hostname
 ```
 
 **Set Root Password:**
@@ -172,17 +172,17 @@ EDITOR=nano visudo
 Uncomment the following line to allow users in the `wheel` group to use `sudo`:
 `%wheel ALL=(ALL:ALL) ALL`
 
-**Create Default Sway Config with Polkit Agent:**
+**Create Default Hyprland Config with Polkit Agent:**
 These commands must be run as root from within the `arch-chroot` environment.
 ```bash
 # Create config directory for the new user
-mkdir -p /home/your_username/.config/sway
+mkdir -p /home/your_username/.config/hypr
 
 # Copy the default config to the user's directory
-cp /etc/sway/config /home/your_username/.config/sway/config
+cp /usr/share/hyprland/hyprland.conf /home/your_username/.config/hypr/hyprland.conf
 
-# Add the Polkit KDE Agent to the Sway config for autostart
-echo 'exec /usr/lib/polkit-kde-authentication-agent-1' >> /home/your_username/.config/sway/config
+# Add the Polkit KDE Agent to the Hyprland config for autostart
+echo 'exec-once = /usr/lib/polkit-kde-authentication-agent-1' >> /home/your_username/.config/hypr/hyprland.conf
 
 # Set correct ownership for the user's home directory
 chown -R your_username:your_username /home/your_username
@@ -233,7 +233,7 @@ alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 echo "alias dots='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'" >> $HOME/.bashrc
 source $HOME/.bashrc
 ```
-You can now use the `dots` alias to manage your dotfiles (e.g., `dots status`, `dots add .config/sway/config`, `dots commit -m "Initial Sway config"`).
+You can now use the `dots` alias to manage your dotfiles (e.g., `dots status`, `dots add .config/hypr/hyprland.conf`, `dots commit -m "Initial Hyprland config"`).
 
 **Final Steps:**
 Your system is now fully installed and configured. You may want to use `lxappearance` to set the GTK theme to `cyberpunk-neon-gtk-theme-revamped-git` and reboot one last time for all changes to take effect.
